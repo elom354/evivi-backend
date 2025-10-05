@@ -1,0 +1,19 @@
+# type(optional scope) : description
+# type: feat | fix | docs | style | refactor | test | chore | build | ci | perf | revert
+    # feat: Commits, qui ajoute une nouvelle fonctionnalité
+    # fix: S'engage, qui corrige un bogue
+    # refactor: Engage, qui réécrit/restructure votre code, cependant, ne change aucun comportement
+    # perf: les engagements sont des engagements de refactor, qui améliorent les performances
+    # docs: S'engage, qui n'affecte que la documentation
+    # test: Commits, qui ajoutent ou modifient des tests
+    # style: Commits, qui n'affectent pas le sens du code (espaces, formatage, etc.)
+    # build: Commits, qui affecte des composants de construction tels que l'outil de construction, le pipeline ci, les dépendances, la version du projet
+    # ci: Commits, qui affectent la configuration CI/CD
+    # chore: Commits de maintenance générale
+    # revert: Commits qui annulent un commit précédent
+# scope: quel module est concerné ?
+# description: une ligne courte
+
+# body: (optionnel)
+
+# footer: (ex: Closes #123)
