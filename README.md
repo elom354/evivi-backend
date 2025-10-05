@@ -19,7 +19,7 @@ Pour bien démarrer sur le projet, se référer au fichier `.nvmrc` pour connaî
 Installer les dépendences :
 
 ```sh
-pnpm install
+npm install
 ```
 
 ## Variable d'environnement
@@ -38,14 +38,14 @@ Le projet requiert que MongoDB soit installé.
 
 ```sh
 # development mode
-$ pnpm run start:api
+$ npm run start:api
 
 # watch mode
-$ pnpm run start:api:dev
+$ npm run start:api:dev
 
 # debug mode
-$ pnpm run start:api:debug
+$ npm run start:api:debug
 
 # production mode
-$ pnpm run start:api:prod
+$ npm run start:api:prod
 ```
