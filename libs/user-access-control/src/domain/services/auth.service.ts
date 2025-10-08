@@ -550,7 +550,7 @@ export class AuthService {
   ): AuthTokenPayload {
     return {
       organization_access: {
-        names: ['digital.gouv.tg'],
+        names: ['backens.irfo.academic.com'],
       },
       metadata: {
         type: 'access_token',
@@ -566,7 +566,7 @@ export class AuthService {
   ): AuthTokenPayload {
     return {
       organization_access: {
-        names: ['digital.gouv.tg'],
+        names: ['backens.irfo.academic.com'],
       },
       metadata: {
         type: 'refresh_token',
