@@ -1,13 +1,12 @@
 import { BaseModel } from '@app/common/models';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { HydratedDocument } from 'mongoose';
+import { HydratedDocument } from 'mongoose';
 
 @Schema({
   collection: 'recover_password_otps',
   timestamps: true,
 })
 export class RecoverPasswordOtp extends BaseModel {
-
   @Prop({ type: String, required: true })
   otp: string;
 

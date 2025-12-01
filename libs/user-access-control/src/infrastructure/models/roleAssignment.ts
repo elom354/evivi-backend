@@ -8,7 +8,6 @@ import mongoose, { HydratedDocument } from 'mongoose';
   timestamps: true,
 })
 export class RoleAssignment extends BaseModel {
-
   @ApiProperty({ type: String, example: '66c39ca0de267891d423a9e8' })
   @Prop({ type: mongoose.Schema.Types.ObjectId, required: true, index: true })
   userId: mongoose.Schema.Types.ObjectId | string;

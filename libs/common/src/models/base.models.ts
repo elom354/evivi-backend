@@ -1,8 +1,7 @@
 import { Prop, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { Document, HydratedDocument } from 'mongoose';
+import { Document, HydratedDocument } from 'mongoose';
 
 export class BaseModel extends Document {
-
   @Prop({ type: Boolean, default: true })
   active: boolean;
 
