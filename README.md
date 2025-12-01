@@ -9,7 +9,6 @@
 Pour cloner le projet et l'ensemble de ses sous-modules, exécuter la commande :
 
 ```sh
-git clone https://github.com/elom354/backend-irfo-academic.git
 ```
 
 ## Prise en main

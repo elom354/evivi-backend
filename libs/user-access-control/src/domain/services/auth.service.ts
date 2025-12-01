@@ -2,7 +2,6 @@
 import { DateUtils, ErrorResult, StringUtils } from '@app/common/utils';
 import { AppConfig } from '@app/core/config';
 import { LeanedDocument } from '@app/core/providers/base.mongo.repository';
-import { CipherService } from '@app/core/services/cipher.service';
 import { JwtSignatureService } from '@app/core/services/jwtSignature.service';
 import { PasswordService } from '@app/core/services/password.service';
 import { LogLevel } from '@app/core/types';
@@ -73,8 +72,6 @@ export class AuthService {
   private readonly jwtRefreshExpiresIn: ms.StringValue;
 
   private readonly verifyEmailTokenLifeInMin: number;
-  private readonly verifyEmailCipherKey: string;
-  private readonly verifyEmailCipherIV: string;
 
   constructor(
     private readonly config: ConfigService<AppConfig, true>,
@@ -116,14 +113,6 @@ export class AuthService {
 
     this.verifyEmailTokenLifeInMin = this.config.get(
       'LIB_USER_EMAIL_VERIFICATION_TOKEN_EXPIRES_IN_MIN',
-      { infer: true },
-    );
-    this.verifyEmailCipherKey = this.config.get(
-      'LIB_USER_EMAIL_VERIFICATION_CIPHER_KEY',
-      { infer: true },
-    );
-    this.verifyEmailCipherIV = this.config.get(
-      'LIB_USER_EMAIL_VERIFICATION_CIPHER_IV',
       { infer: true },
     );
   }
@@ -350,7 +339,7 @@ export class AuthService {
     try {
       if (user.verified) return;
 
-      const data: AuthEmailVerificationPayload = {
+      const payload: AuthEmailVerificationPayload = {
         userId: user._id.toString(),
         email: user.email,
         exp: DateUtils.addMinutes(
@@ -358,14 +347,19 @@ export class AuthService {
           this.verifyEmailTokenLifeInMin,
         ).getTime(),
       };
-      const token = CipherService.encrypt(
-        data,
-        this.verifyEmailCipherKey,
-        this.verifyEmailCipherIV,
+
+      // Utilise JWT au lieu du CipherService
+      const token = await JwtSignatureService.signPayload(
+        payload,
+        this.jwtSecret,
+        {
+          expiresIn: `${this.verifyEmailTokenLifeInMin}m`,
+          issuer: this.jwtIssuer,
+        },
       );
 
-      const verificationUrl = `${this.apiBaseUrl}${callbackRoutePath}?token=${token}`;
-      const payload = {
+      const verificationUrl = `${this.apiBaseUrl}${callbackRoutePath}?token=${token.token}`;
+      const emailPayload = {
         lang,
         isFr: lang === 'fr',
         appName: this.appName,
@@ -376,7 +370,7 @@ export class AuthService {
       this.notifyService
         .notifyByEmail(
           'mail-email-verification',
-          payload,
+          emailPayload,
           user.email,
           user._id.toString(),
         )
@@ -388,12 +382,11 @@ export class AuthService {
 
   async verifyEmail(token: string) {
     try {
-      const decoded = CipherService.decrypt(
+      // Utilise JWT au lieu du CipherService
+      const decoded = (await JwtSignatureService.verifyPayload(
         token,
-        this.verifyEmailCipherKey,
-        this.verifyEmailCipherIV,
-        true,
-      ) as AuthEmailVerificationPayload;
+        this.jwtSecret,
+      )) as AuthEmailVerificationPayload;
 
       const user = await this.userRepository.getById(decoded.userId);
       if (!user) {
@@ -550,7 +543,7 @@ export class AuthService {
   ): AuthTokenPayload {
     return {
       organization_access: {
-        names: ['backens.irfo.academic.com'],
+        names: ['backend.deydey.academic.com'],
       },
       metadata: {
         type: 'access_token',
@@ -566,7 +559,7 @@ export class AuthService {
   ): AuthTokenPayload {
     return {
       organization_access: {
-        names: ['backens.irfo.academic.com'],
+        names: ['backend.deydey.academic.com'],
       },
       metadata: {
         type: 'refresh_token',

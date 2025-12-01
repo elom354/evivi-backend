@@ -7,7 +7,6 @@ import mongoose, { HydratedDocument } from 'mongoose';
   timestamps: true,
 })
 export class RecoverPasswordOtp extends BaseModel {
-  _id: mongoose.Schema.Types.ObjectId;
 
   @Prop({ type: String, required: true })
   otp: string;

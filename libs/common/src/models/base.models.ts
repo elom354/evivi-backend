@@ -2,7 +2,6 @@ import { Prop, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { Document, HydratedDocument } from 'mongoose';
 
 export class BaseModel extends Document {
-  _id: mongoose.Schema.Types.ObjectId;
 
   @Prop({ type: Boolean, default: true })
   active: boolean;

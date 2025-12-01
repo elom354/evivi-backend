@@ -7,10 +7,10 @@ import { ApiJournalModule } from './modules/journal/journal.module';
 
 @Module({
   imports: [
-    LibCoreModule,
-    ApiCoreModule,
+    // LibCoreModule,
+    // ApiCoreModule,
     ApiAuthModule,
-    ApiUserAccessControlModule,
+    // ApiUserAccessControlModule,
     ApiJournalModule,
   ],
 })
