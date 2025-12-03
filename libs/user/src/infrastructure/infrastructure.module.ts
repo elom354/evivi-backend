@@ -7,12 +7,12 @@ import { MAIN_DATABASE_CONNECTION_NAME } from '@app/common/constants';
 
 @Module({
   imports: [
-      LibCoreModule,
-      MongooseModule.forFeature(
-        ModelsMainProviders,
-        MAIN_DATABASE_CONNECTION_NAME,
-      ),
-    ],
+    LibCoreModule,
+    MongooseModule.forFeature(
+      ModelsMainProviders,
+      MAIN_DATABASE_CONNECTION_NAME,
+    ),
+  ],
   providers: [UserRepository],
   exports: [UserRepository],
 })

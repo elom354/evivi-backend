@@ -15,7 +15,6 @@ import { UserRepository } from '@app/user/infrastructure/repositories';
 
 import { UserService } from '@app/user/domain/services/user/user.service';
 import {
-  AuthResponse,
   AuthTokens,
   ChangePasswordInput,
   ForgotPasswordInput,

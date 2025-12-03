@@ -6,7 +6,7 @@ import {
   MinLength,
   IsEnum,
   IsOptional,
-  Length
+  Length,
 } from 'class-validator';
 import { OTP_METHOD } from '@app/user/infrastructure/models';
 
@@ -57,7 +57,9 @@ export class RegisterDto {
     description: "Le numéro de téléphone de l'utilisateur",
     example: '+22899223344',
   })
-  @IsString({ message: 'Le numéro de téléphone doit être une chaîne de caractères' })
+  @IsString({
+    message: 'Le numéro de téléphone doit être une chaîne de caractères',
+  })
   @IsNotEmpty({ message: 'Le numéro de téléphone est obligatoire' })
   phone: string;
 
@@ -67,7 +69,9 @@ export class RegisterDto {
     example: '+228',
     required: false,
   })
-  @IsString({ message: "L'indicatif du pays doit être une chaîne de caractères" })
+  @IsString({
+    message: "L'indicatif du pays doit être une chaîne de caractères",
+  })
   @IsOptional()
   phoneCountryCode?: string;
 
@@ -78,7 +82,9 @@ export class RegisterDto {
     minLength: 8,
   })
   @IsString({ message: 'Le mot de passe doit être une chaîne de caractères' })
-  @MinLength(8, { message: 'Le mot de passe doit contenir au moins 8 caractères' })
+  @MinLength(8, {
+    message: 'Le mot de passe doit contenir au moins 8 caractères',
+  })
   @IsNotEmpty({ message: 'Le mot de passe est obligatoire' })
   password: string;
 
@@ -103,7 +109,9 @@ export class VerifyOtpDto {
     description: "L'identifiant de l'utilisateur",
     example: '507f1f77bcf86cd799439011',
   })
-  @IsString({ message: "L'identifiant utilisateur doit être une chaîne de caractères" })
+  @IsString({
+    message: "L'identifiant utilisateur doit être une chaîne de caractères",
+  })
   @IsNotEmpty({ message: "L'identifiant utilisateur est obligatoire" })
   userId: string;
 
@@ -115,7 +123,9 @@ export class VerifyOtpDto {
     maxLength: 6,
   })
   @IsString({ message: 'Le code OTP doit être une chaîne de caractères' })
-  @Length(6, 6, { message: 'Le code OTP doit contenir exactement 6 caractères' })
+  @Length(6, 6, {
+    message: 'Le code OTP doit contenir exactement 6 caractères',
+  })
   @IsNotEmpty({ message: 'Le code OTP est obligatoire' })
   code: string;
 }
@@ -129,7 +139,9 @@ export class ResendOtpDto {
     description: "L'identifiant de l'utilisateur",
     example: '507f1f77bcf86cd799439011',
   })
-  @IsString({ message: "L'identifiant utilisateur doit être une chaîne de caractères" })
+  @IsString({
+    message: "L'identifiant utilisateur doit être une chaîne de caractères",
+  })
   @IsNotEmpty({ message: "L'identifiant utilisateur est obligatoire" })
   userId: string;
 }
@@ -166,7 +178,9 @@ export class RefreshTokenDto {
     description: 'Le token de rafraîchissement',
     example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
   })
-  @IsString({ message: 'Le token de rafraîchissement doit être une chaîne de caractères' })
+  @IsString({
+    message: 'Le token de rafraîchissement doit être une chaîne de caractères',
+  })
   @IsNotEmpty({ message: 'Le token de rafraîchissement est obligatoire' })
   refreshToken: string;
 }
@@ -206,7 +220,9 @@ export class ResetPasswordDto {
     minLength: 8,
   })
   @IsString({ message: 'Le mot de passe doit être une chaîne de caractères' })
-  @MinLength(8, { message: 'Le mot de passe doit contenir au moins 8 caractères' })
+  @MinLength(8, {
+    message: 'Le mot de passe doit contenir au moins 8 caractères',
+  })
   @IsNotEmpty({ message: 'Le mot de passe est obligatoire' })
   password: string;
 }
@@ -220,7 +236,9 @@ export class ChangePasswordDto {
     description: "L'ancien mot de passe",
     example: 'OldPassword123',
   })
-  @IsString({ message: "L'ancien mot de passe doit être une chaîne de caractères" })
+  @IsString({
+    message: "L'ancien mot de passe doit être une chaîne de caractères",
+  })
   @IsNotEmpty({ message: "L'ancien mot de passe est obligatoire" })
   oldPassword: string;
 
@@ -230,8 +248,12 @@ export class ChangePasswordDto {
     example: 'NewStrong@Password123',
     minLength: 8,
   })
-  @IsString({ message: 'Le nouveau mot de passe doit être une chaîne de caractères' })
-  @MinLength(8, { message: 'Le nouveau mot de passe doit contenir au moins 8 caractères' })
+  @IsString({
+    message: 'Le nouveau mot de passe doit être une chaîne de caractères',
+  })
+  @MinLength(8, {
+    message: 'Le nouveau mot de passe doit contenir au moins 8 caractères',
+  })
   @IsNotEmpty({ message: 'Le nouveau mot de passe est obligatoire' })
   newPassword: string;
 }

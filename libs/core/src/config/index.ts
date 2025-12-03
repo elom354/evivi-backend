@@ -11,7 +11,6 @@ import {
   Max,
   Min,
   Validate,
-  ValidateIf,
   validateSync,
 } from 'class-validator';
 import * as ms from 'ms';
@@ -166,53 +165,53 @@ export class AppConfig {
   // Mailtrap
   // Dans votre AppConfig, remplacez toutes les configs mailer par :
 
-// ================================= NOTIFICATION
-@IsBoolean()
-@IsOptional()
-@Transform(({ value }) => value === 'true')
-LIB_NOTIFICATION_EMAIL_ENABLED: boolean = false;
+  // ================================= NOTIFICATION
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => value === 'true')
+  LIB_NOTIFICATION_EMAIL_ENABLED: boolean = false;
 
-@IsBoolean()
-@IsOptional()
-@Transform(({ value }) => value === 'true')
-LIB_NOTIFICATION_SMS_ENABLED: boolean = false;
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => value === 'true')
+  LIB_NOTIFICATION_SMS_ENABLED: boolean = false;
 
-// Email Configuration (un seul provider)
-@IsString()
-@IsNotEmpty()
-LIB_NOTIFICATION_MAILER_HOST: string;
+  // Email Configuration (un seul provider)
+  @IsString()
+  @IsNotEmpty()
+  LIB_NOTIFICATION_MAILER_HOST: string;
 
-@IsInt()
-@Min(0)
-@Max(65_535)
-@Transform(({ value }) => parseInt(value, 10))
-LIB_NOTIFICATION_MAILER_PORT: number = 587;
+  @IsInt()
+  @Min(0)
+  @Max(65_535)
+  @Transform(({ value }) => parseInt(value, 10))
+  LIB_NOTIFICATION_MAILER_PORT: number = 587;
 
-@IsBoolean()
-@IsOptional()
-@Transform(({ value }) => value === 'true')
-LIB_NOTIFICATION_MAILER_SECURE: boolean = false;
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => value === 'true')
+  LIB_NOTIFICATION_MAILER_SECURE: boolean = false;
 
-@IsString()
-@IsNotEmpty()
-LIB_NOTIFICATION_MAILER_USERNAME: string;
+  @IsString()
+  @IsNotEmpty()
+  LIB_NOTIFICATION_MAILER_USERNAME: string;
 
-@IsString()
-@IsNotEmpty()
-LIB_NOTIFICATION_MAILER_PASSWORD: string;
+  @IsString()
+  @IsNotEmpty()
+  LIB_NOTIFICATION_MAILER_PASSWORD: string;
 
-@IsEmail()
-LIB_NOTIFICATION_MAILER_DEFAULT_FROM: string;
+  @IsEmail()
+  LIB_NOTIFICATION_MAILER_DEFAULT_FROM: string;
 
-// Dans AppConfig, remplacez les configs SMS par :
+  // Dans AppConfig, remplacez les configs SMS par :
 
-@IsString()
-@IsNotEmpty()
-LIB_NOTIFICATION_SMS_AFRIKSMS_API_KEY: string;
+  @IsString()
+  @IsNotEmpty()
+  LIB_NOTIFICATION_SMS_AFRIKSMS_API_KEY: string;
 
-@IsString()
-@IsNotEmpty()
-LIB_NOTIFICATION_SMS_AFRIKSMS_SENDER_NAME: string;
+  @IsString()
+  @IsNotEmpty()
+  LIB_NOTIFICATION_SMS_AFRIKSMS_SENDER_NAME: string;
 }
 
 export function validateConfig(payload: Record<string, any>) {

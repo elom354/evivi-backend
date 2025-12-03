@@ -8,5 +8,4 @@ export const ModelsMainProviders: ModelDefinition[] = [
   { name: EmailTemplate.name, schema: EmailTemplateSchema },
   { name: UserNotification.name, schema: UserNotificationSchema },
   { name: User.name, schema: UserSchema },
-
 ];

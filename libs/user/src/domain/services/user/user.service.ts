@@ -169,7 +169,7 @@ export class UserService {
       });
     }
 
-    return updatedUser; 
+    return updatedUser;
   }
 
   /**
@@ -206,11 +206,7 @@ export class UserService {
     );
   }
 
-  async getById(
-    id: string,
-    isAdmin = false,
-    active?: boolean,
-  ): Promise<PublicUser> {
+  async getById(id: string, isAdmin = false): Promise<PublicUser> {
     const user = await this.userRepository.getById(id);
 
     if (!user) {
@@ -241,11 +237,11 @@ export class UserService {
     return PasswordService.hashPassword(password);
   }
 
-  private isPasswordMatch(
-    salt: string,
-    password: string,
-    hashedPassword: string,
-  ) {
-    return PasswordService.isPasswordMatch(salt, password, hashedPassword);
-  }
+  // private isPasswordMatch(
+  //   salt: string,
+  //   password: string,
+  //   hashedPassword: string,
+  // ) {
+  //   return PasswordService.isPasswordMatch(salt, password, hashedPassword);
+  // }
 }

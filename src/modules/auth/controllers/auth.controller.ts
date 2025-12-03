@@ -1,22 +1,5 @@
-import {
-  Body,
-  Controller,
-  HttpCode,
-  HttpStatus,
-  Post,
-  Req,
-  UseGuards,
-} from '@nestjs/common';
-import {
-  ApiBody,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import { Request } from 'express';
-
-import { LeanedDocument } from '@app/core/providers/base.mongo.repository';
-import { User } from '@app/user/infrastructure/models';
+import { Body, Controller, HttpCode, HttpStatus, Post } from '@nestjs/common';
+import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 import {
   RegisterDto,
@@ -79,7 +62,10 @@ export class AuthController {
   @Public()
   @ApiOperation({ summary: 'Renvoyer un code OTP' })
   @ApiBody({ type: ResendOtpDto })
-  @ApiResponse({ status: HttpStatus.OK, description: 'OTP renvoyé avec succès' })
+  @ApiResponse({
+    status: HttpStatus.OK,
+    description: 'OTP renvoyé avec succès',
+  })
   @ApiResponse({ status: '4XX', description: 'Erreur lors du renvoi' })
   @HttpCode(HttpStatus.OK)
   @Post('resend-otp')
@@ -111,9 +97,7 @@ export class AuthController {
   @ApiResponse({ status: HttpStatus.OK, type: LogoutResponseDto })
   @HttpCode(HttpStatus.OK)
   @Post('logout')
-  async logout(
-    @CurrentUser('_id') userId: string,
-  ): Promise<LogoutResponseDto> {
+  async logout(@CurrentUser('_id') userId: string): Promise<LogoutResponseDto> {
     try {
       const result = await this.authService.logout(userId.toString());
       return new LogoutResponseDto(result);
@@ -175,7 +159,9 @@ export class AuthController {
     }
   }
 
-  @ApiOperation({ summary: 'Changement de mot de passe (utilisateur connecté)' })
+  @ApiOperation({
+    summary: 'Changement de mot de passe (utilisateur connecté)',
+  })
   @ApiBody({ type: ChangePasswordDto })
   @ApiResponse({ status: HttpStatus.OK, type: ChangePasswordResponseDto })
   @ApiResponse({ status: '4XX', description: 'Ancien mot de passe incorrect' })

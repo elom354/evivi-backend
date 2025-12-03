@@ -1,1 +1,1 @@
-export * from './user/user.repo'
+export * from './user/user.repo';

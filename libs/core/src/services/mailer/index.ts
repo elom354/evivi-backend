@@ -17,10 +17,16 @@ export class MailService {
     this.transporter = new MailerTransporter({
       host: this.config.get('LIB_NOTIFICATION_MAILER_HOST', { infer: true }),
       port: this.config.get('LIB_NOTIFICATION_MAILER_PORT', { infer: true }),
-      secure: this.config.get('LIB_NOTIFICATION_MAILER_SECURE', { infer: true }),
+      secure: this.config.get('LIB_NOTIFICATION_MAILER_SECURE', {
+        infer: true,
+      }),
       auth: {
-        user: this.config.get('LIB_NOTIFICATION_MAILER_USERNAME', { infer: true }),
-        pass: this.config.get('LIB_NOTIFICATION_MAILER_PASSWORD', { infer: true }),
+        user: this.config.get('LIB_NOTIFICATION_MAILER_USERNAME', {
+          infer: true,
+        }),
+        pass: this.config.get('LIB_NOTIFICATION_MAILER_PASSWORD', {
+          infer: true,
+        }),
       },
     });
   }

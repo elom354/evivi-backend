@@ -70,9 +70,7 @@ export class SmsService {
 
     try {
       // Normaliser les numéros de téléphone
-      const recipients = Array.isArray(options.to)
-        ? options.to
-        : [options.to];
+      const recipients = Array.isArray(options.to) ? options.to : [options.to];
 
       // Préparer les données selon la doc AfrikSMS
       const payload = {
@@ -82,9 +80,7 @@ export class SmsService {
         message: options.message,
       };
 
-      this.logger.debug(
-        `Sending SMS to ${recipients.join(', ')} via AfrikSMS`,
-      );
+      this.logger.debug(`Sending SMS to ${recipients.join(', ')} via AfrikSMS`);
 
       // Appel API AfrikSMS - Endpoint /sms/send
       const response = await this.httpClient.post<AfrikSmsResponse>(

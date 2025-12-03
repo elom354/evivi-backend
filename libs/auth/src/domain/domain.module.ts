@@ -14,7 +14,7 @@ import { JwtRefreshStrategy, JwtStrategy } from './strategy';
 @Module({
   imports: [
     LibCoreModule,
-    UserModule, 
+    UserModule,
     LibNotificationModule,
     PassportModule.register({ defaultStrategy: 'jwt' }),
     JwtModule.registerAsync({
