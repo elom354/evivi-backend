@@ -32,7 +32,9 @@ export class AllExceptionsFilter implements ExceptionFilter {
 
       return response.status(status).json({
         success: false,
-        ...(typeof exceptionResponse === 'object' ? exceptionResponse : { message: exceptionResponse }),
+        ...(typeof exceptionResponse === 'object'
+          ? exceptionResponse
+          : { message: exceptionResponse }),
         timestamp: new Date().toISOString(),
       });
     }
