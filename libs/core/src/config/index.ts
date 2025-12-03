@@ -160,162 +160,59 @@ export class AppConfig {
   @Transform(({ value }) => value === 'true')
   LIB_JOURNAL_ENABLED: boolean = false;
 
-  // ------------- Notification
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_NOTIFICATION_EMAIL_ENABLED: boolean = false;
-
   @IsEnum(MailerClient)
   LIB_NOTIFICATION_MAILER_CLIENT_NAME: string;
 
   // Mailtrap
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_NOTIFICATION_MAILER_MAILTRAP_ENABLED: boolean = false;
+  // Dans votre AppConfig, remplacez toutes les configs mailer par :
 
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_NOTIFICATION_MAILER_MAILTRAP_ENABLE_TLS: boolean = false;
+// ================================= NOTIFICATION
+@IsBoolean()
+@IsOptional()
+@Transform(({ value }) => value === 'true')
+LIB_NOTIFICATION_EMAIL_ENABLED: boolean = false;
 
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILTRAP_ENABLED === true)
-  @IsString()
-  @IsNotEmpty()
-  LIB_NOTIFICATION_MAILER_MAILTRAP_HOST: string;
+@IsBoolean()
+@IsOptional()
+@Transform(({ value }) => value === 'true')
+LIB_NOTIFICATION_SMS_ENABLED: boolean = false;
 
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILTRAP_ENABLED === true)
-  @IsInt()
-  @Min(0)
-  @Max(65_535)
-  @Transform(({ value }) => parseInt(value, 10))
-  LIB_NOTIFICATION_MAILER_MAILTRAP_PORT: number = 1025;
+// Email Configuration (un seul provider)
+@IsString()
+@IsNotEmpty()
+LIB_NOTIFICATION_MAILER_HOST: string;
 
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILTRAP_ENABLED === true)
-  @IsString()
-  @IsOptional()
-  LIB_NOTIFICATION_MAILER_MAILTRAP_USERNAME: string;
+@IsInt()
+@Min(0)
+@Max(65_535)
+@Transform(({ value }) => parseInt(value, 10))
+LIB_NOTIFICATION_MAILER_PORT: number = 587;
 
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILTRAP_ENABLED === true)
-  @IsString()
-  @IsOptional()
-  LIB_NOTIFICATION_MAILER_MAILTRAP_PASSWORD: string;
+@IsBoolean()
+@IsOptional()
+@Transform(({ value }) => value === 'true')
+LIB_NOTIFICATION_MAILER_SECURE: boolean = false;
 
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILTRAP_ENABLED === true)
-  @IsEmail()
-  LIB_NOTIFICATION_MAILER_MAILTRAP_DEFAULT_MAIL_FROM: string;
+@IsString()
+@IsNotEmpty()
+LIB_NOTIFICATION_MAILER_USERNAME: string;
 
-  // Mailhog
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_NOTIFICATION_MAILER_MAILHOG_ENABLED: boolean = false;
+@IsString()
+@IsNotEmpty()
+LIB_NOTIFICATION_MAILER_PASSWORD: string;
 
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_NOTIFICATION_MAILER_MAILHOG_ENABLE_TLS: boolean = false;
+@IsEmail()
+LIB_NOTIFICATION_MAILER_DEFAULT_FROM: string;
 
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILHOG_ENABLED === true)
-  @IsString()
-  @IsNotEmpty()
-  LIB_NOTIFICATION_MAILER_MAILHOG_HOST: string;
+// Dans AppConfig, remplacez les configs SMS par :
 
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILHOG_ENABLED === true)
-  @IsInt()
-  @Min(0)
-  @Max(65_535)
-  @Transform(({ value }) => parseInt(value, 10))
-  LIB_NOTIFICATION_MAILER_MAILHOG_PORT: number = 1025;
+@IsString()
+@IsNotEmpty()
+LIB_NOTIFICATION_SMS_AFRIKSMS_API_KEY: string;
 
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILHOG_ENABLED === true)
-  @IsString()
-  @IsOptional()
-  LIB_NOTIFICATION_MAILER_MAILHOG_USERNAME: string;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILHOG_ENABLED === true)
-  @IsString()
-  @IsOptional()
-  LIB_NOTIFICATION_MAILER_MAILHOG_PASSWORD: string;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_MAILHOG_ENABLED === true)
-  @IsEmail()
-  LIB_NOTIFICATION_MAILER_MAILHOG_DEFAULT_MAIL_FROM: string;
-
-  // Sendgrid
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_NOTIFICATION_MAILER_SENDGRID_ENABLED: boolean = false;
-
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_NOTIFICATION_MAILER_SENDGRID_ENABLE_TLS: boolean = false;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_SENDGRID_ENABLED === true)
-  @IsString()
-  @IsNotEmpty()
-  LIB_NOTIFICATION_MAILER_SENDGRID_HOST: string;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_SENDGRID_ENABLED === true)
-  @IsInt()
-  @Min(0)
-  @Max(65_535)
-  @Transform(({ value }) => parseInt(value, 10))
-  LIB_NOTIFICATION_MAILER_SENDGRID_PORT: number = 25;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_SENDGRID_ENABLED === true)
-  @IsString()
-  @IsOptional()
-  LIB_NOTIFICATION_MAILER_SENDGRID_USERNAME: string;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_SENDGRID_ENABLED === true)
-  @IsString()
-  @IsOptional()
-  LIB_NOTIFICATION_MAILER_SENDGRID_PASSWORD: string;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_SENDGRID_ENABLED === true)
-  @IsEmail()
-  LIB_NOTIFICATION_MAILER_SENDGRID_DEFAULT_MAIL_FROM: string;
-
-  // Gmail
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_NOTIFICATION_MAILER_GMAIL_ENABLED: boolean = false;
-
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_NOTIFICATION_MAILER_GMAIL_ENABLE_TLS: boolean = false;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_GMAIL_ENABLED === true)
-  @IsString()
-  @IsNotEmpty()
-  LIB_NOTIFICATION_MAILER_GMAIL_HOST: string;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_GMAIL_ENABLED === true)
-  @IsInt()
-  @Min(0)
-  @Max(65_535)
-  @Transform(({ value }) => parseInt(value, 10))
-  LIB_NOTIFICATION_MAILER_GMAIL_PORT: number = 25;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_GMAIL_ENABLED === true)
-  @IsString()
-  @IsOptional()
-  LIB_NOTIFICATION_MAILER_GMAIL_USERNAME: string;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_GMAIL_ENABLED === true)
-  @IsString()
-  @IsOptional()
-  LIB_NOTIFICATION_MAILER_GMAIL_PASSWORD: string;
-
-  @ValidateIf((o) => o.LIB_NOTIFICATION_MAILER_GMAIL_ENABLED === true)
-  @IsEmail()
-  LIB_NOTIFICATION_MAILER_GMAIL_DEFAULT_MAIL_FROM: string;
+@IsString()
+@IsNotEmpty()
+LIB_NOTIFICATION_SMS_AFRIKSMS_SENDER_NAME: string;
 }
 
 export function validateConfig(payload: Record<string, any>) {

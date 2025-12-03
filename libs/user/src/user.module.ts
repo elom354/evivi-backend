@@ -1,7 +1,9 @@
 import { Module } from '@nestjs/common';
+import { LibUserDomainModule } from './domain/domain.module';
+import { LibUserInfrastructureModule } from './infrastructure/infrastructure.module';
 
 @Module({
-  providers: [],
-  exports: [],
+  imports: [LibUserInfrastructureModule, LibUserDomainModule],
+  exports: [LibUserDomainModule, LibUserInfrastructureModule],
 })
 export class UserModule {}
