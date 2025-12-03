@@ -20,6 +20,10 @@
     "@app/core/(.*)": "<rootDir>/../libs/core/src/$1",
     "@app/core": "<rootDir>/../libs/core/src",
     "@app/user-access-control/(.*)": "<rootDir>/../libs/user-access-control/src/$1",
-    "@app/user-access-control": "<rootDir>/../libs/user-access-control/src"
+    "@app/user-access-control": "<rootDir>/../libs/user-access-control/src",
+    "@app/auth/(.*)": "<rootDir>/../libs/auth/src/$1",
+    "@app/auth": "<rootDir>/../libs/auth/src",
+    "@app/user/(.*)": "<rootDir>/../libs/user/src/$1",
+    "@app/user": "<rootDir>/../libs/user/src"
   }
 }

@@ -3,6 +3,7 @@ import { MongooseModule } from '@nestjs/mongoose';
 
 import { MAIN_DATABASE_CONNECTION_NAME } from '@app/common/constants';
 import { LibCoreModule } from '@app/core';
+import { SmsService } from '@app/core/services/sms/sms.service';
 import { LibJournalModule } from '@app/journal';
 import { ModelsMainProviders } from './models';
 import { EmailTemplateRepository } from './repositories/emailTemplate.repository';
@@ -22,7 +23,13 @@ import { NotifyService } from './services/notify.service';
     EmailTemplateRepository,
     UserNotificationRepository,
     NotifyService,
+    SmsService,
   ],
-  exports: [EmailTemplateRepository, UserNotificationRepository, NotifyService],
+  exports: [
+    EmailTemplateRepository,
+    UserNotificationRepository,
+    NotifyService,
+    SmsService,
+  ],
 })
 export class LibNotificationInfrastructureModule {}

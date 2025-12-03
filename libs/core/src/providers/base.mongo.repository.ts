@@ -128,10 +128,12 @@ export class BaseRepository<T extends Document> {
     id: string | Types.ObjectId,
     update: UpdateQuery<T>,
     options: QueryOptions = {},
-  ): Promise<T | null> {
+  ): Promise<LeanedDocument<T> | null> {
     const objectId = typeof id === 'string' ? new Types.ObjectId(id) : id;
+    //@ts-expect-error nestjs
     return await this.model
       .findByIdAndUpdate(objectId, update, { new: true, ...options })
+      .lean()
       .exec();
   }
 

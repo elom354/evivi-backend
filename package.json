@@ -33,6 +33,7 @@
     "@nestjs/event-emitter": "^3.0.1",
     "@nestjs/jwt": "^11.0.0",
     "@nestjs/mongoose": "^10.1.0",
+    "@nestjs/passport": "^11.0.5",
     "@nestjs/platform-express": "^10.0.0",
     "@nestjs/schedule": "^6.0.1",
     "@nestjs/swagger": "^8.1.1",
@@ -62,6 +63,7 @@
     "multer": "^1.4.5-lts.1",
     "nanoid": "^3.3.11",
     "nodemailer": "^6.10.0",
+    "passport-jwt": "^4.0.1",
     "password-validator": "^5.3.0",
     "pdf-lib": "^1.17.1",
     "puppeteer": "^24.23.0",
@@ -138,7 +140,9 @@
       "^@app/journal(|/.*)$": "<rootDir>/libs/journal/src/$1",
       "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1",
       "^@app/core(|/.*)$": "<rootDir>/libs/core/src/$1",
-      "^@app/user-access-control(|/.*)$": "<rootDir>/libs/user-access-control/src/$1"
+      "^@app/user-access-control(|/.*)$": "<rootDir>/libs/user-access-control/src/$1",
+      "^@app/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
+      "^@app/user(|/.*)$": "<rootDir>/libs/user/src/$1"
     }
   }
 }

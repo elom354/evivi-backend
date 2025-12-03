@@ -9,17 +9,20 @@ import { SendMailOptions } from 'nodemailer';
 import { Attachment } from 'nodemailer/lib/mailer';
 import { EmailTemplateRepository } from '../repositories/emailTemplate.repository';
 import { UserNotificationRepository } from '../repositories/userNotification.repository';
+import { OTP_METHOD } from '@app/user/infrastructure/models';
+import { SmsService } from '@app/core/services/sms/sms.service';
 
 @Injectable()
 export class NotifyService {
   private readonly logger = new Logger(NotifyService.name);
-  private readonly isEmailEnabled: boolean = false;
+  private readonly isEmailEnabled: boolean;
+  private readonly isSmsEnabled: boolean;
   private readonly appName: string;
 
   constructor(
     private readonly config: ConfigService<AppConfig, true>,
     private readonly mailService: MailService,
-
+    private readonly smsService: SmsService,
     private readonly emailTemplateRepository: EmailTemplateRepository,
     private readonly userNotificationRepository: UserNotificationRepository,
     private readonly journalService: JournalService,
@@ -27,10 +30,16 @@ export class NotifyService {
     this.isEmailEnabled = this.config.get('LIB_NOTIFICATION_EMAIL_ENABLED', {
       infer: true,
     });
+    this.isSmsEnabled = this.config.get('LIB_NOTIFICATION_SMS_ENABLED', {
+      infer: true,
+    });
     this.appName = this.config.get('GLOBAL_APP_NAME', { infer: true });
 
     if (!this.isEmailEnabled) {
       this.logger.warn('EMAIL Notification is disabled');
+    }
+    if (!this.isSmsEnabled) {
+      this.logger.warn('SMS Notification is disabled');
     }
   }
 
@@ -78,17 +87,34 @@ export class NotifyService {
       attachments,
     };
 
-    if (this.mailService.clients.MAILHOG) {
-      this.mailService
-        .sendWithClient(this.mailService.clients.MAILHOG, mailOptions)
-        .catch((error) => {
-          this.log('error', '[MAILHOG ERROR]', error);
-        });
-    }
-
     return this.mailService.send(mailOptions).catch((error) => {
-      this.log('error', '[MAILER MAIN CLIENT ERROR]', error);
+      this.log('error', '[MAILER ERROR]', error);
+      throw error;
     });
+  }
+
+  async sendOtp(
+    method: OTP_METHOD,
+    recipient: string,
+    otpCode: string,
+    userId?: string,
+  ): Promise<void> {
+    if (method === OTP_METHOD.EMAIL) {
+      await this.notifyByEmail(
+        'otp-verification',
+        { otpCode, appName: this.appName },
+        recipient,
+        userId,
+      );
+    } else if (method === OTP_METHOD.SMS) {
+      if (!this.isSmsEnabled) {
+        throw new Error('SMS notification is not enabled');
+      }
+      await this.smsService.send({
+        to: recipient,
+        message: `Votre code de vérification ${this.appName}: ${otpCode}`,
+      });
+    }
   }
 
   private log(level: LogLevel, message?: string, data?: Record<string, any>) {

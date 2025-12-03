@@ -1,17 +1,30 @@
-// import { LibCoreModule } from '@app/core';
 import { Module } from '@nestjs/common';
-// import { ApiUserAccessControlModule } from './modules/access-control/access-control.module';
-import { ApiAuthModule } from './modules/auth/auth.module';
-// import { ApiCoreModule } from './modules/core/core.module';
+import { APP_GUARD } from '@nestjs/core';
+
+import { LibCoreModule } from '@app/core';
+import { ApiKeyGuard } from '@app/auth/domain/guards/api-key.guard';
+import { JwtAuthGuard } from '@app/auth/domain/guards/jwt-auth.guard';
+
 import { ApiJournalModule } from './modules/journal/journal.module';
+import { ApiAuthModule } from './modules/auth/auth.module';
+import { ApiNotificationModule } from './modules/notification/notification.module';
 
 @Module({
   imports: [
-    // LibCoreModule,
-    // ApiCoreModule,
-    ApiAuthModule,
-    // ApiUserAccessControlModule,
+    LibCoreModule,
     ApiJournalModule,
+    ApiNotificationModule,
+    ApiAuthModule,
+  ],
+  providers: [
+    {
+      provide: APP_GUARD,
+      useClass: ApiKeyGuard,
+    },
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
   ],
 })
 export class ApiAppModule {}
