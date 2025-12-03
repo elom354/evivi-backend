@@ -1,4 +1,9 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  CanActivate,
+  ExecutionContext,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Request } from 'express';
 
@@ -24,7 +29,10 @@ export class ApiKeyGuard implements CanActivate {
   }
 
   private extractApiKey(request: Request): string | undefined {
-    const apiKeyHeader = this.configService.get<string>('API_KEY_HEADER', 'x-api-key');
+    const apiKeyHeader = this.configService.get<string>(
+      'API_KEY_HEADER',
+      'x-api-key',
+    );
 
     // Try to get from header first
     const headerKey = request.headers[apiKeyHeader.toLowerCase()] as string;
@@ -39,7 +47,9 @@ export class ApiKeyGuard implements CanActivate {
     }
 
     // Try to get from body
-    const bodyKey = (request.body as Record<string, unknown>)?.[apiKeyHeader] as string;
+    const bodyKey = (request.body as Record<string, unknown>)?.[
+      apiKeyHeader
+    ] as string;
     if (bodyKey) {
       return bodyKey;
     }
