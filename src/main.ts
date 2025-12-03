@@ -8,9 +8,11 @@ import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { NextFunction, Request, Response } from 'express';
 import * as mongoSanitize from 'express-mongo-sanitize';
 import { ApiAppModule } from './app.module';
+import { AllExceptionsFilter } from '@app/common/utils/http-exception.filter';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(ApiAppModule);
+  app.useGlobalFilters(new AllExceptionsFilter());
   const config = app.get(ConfigService<AppConfig, true>);
 
   const globalPrefix = config.get('API_APP_PREFIX', {

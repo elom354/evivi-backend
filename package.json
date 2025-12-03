@@ -138,7 +138,9 @@
       "^@app/journal(|/.*)$": "<rootDir>/libs/journal/src/$1",
       "^@app/common(|/.*)$": "<rootDir>/libs/common/src/$1",
       "^@app/core(|/.*)$": "<rootDir>/libs/core/src/$1",
-      "^@app/user-access-control(|/.*)$": "<rootDir>/libs/user-access-control/src/$1"
+      "^@app/user-access-control(|/.*)$": "<rootDir>/libs/user-access-control/src/$1",
+      "^@app/auth(|/.*)$": "<rootDir>/libs/auth/src/$1",
+      "^@app/user(|/.*)$": "<rootDir>/libs/user/src/$1"
     }
   }
 }

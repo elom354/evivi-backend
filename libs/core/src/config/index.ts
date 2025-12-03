@@ -37,6 +37,14 @@ export class AppConfig {
 
   @IsString()
   @IsNotEmpty()
+  API_KEY: string;
+
+  @IsString()
+  @IsNotEmpty()
+  API_KEY_HEADER: string;
+
+  @IsString()
+  @IsNotEmpty()
   GLOBAL_JOURNAL_DATABASE_URI: string;
 
   @IsString()
@@ -145,28 +153,6 @@ export class AppConfig {
   @IsOptional()
   @Transform(({ value }) => parseInt(value, 10))
   LIB_USER_EMAIL_VERIFICATION_TOKEN_EXPIRES_IN_MIN: number = 10;
-
-  @IsString()
-  @IsNotEmpty()
-  LIB_USER_EMAIL_VERIFICATION_CIPHER_KEY: string;
-
-  @IsString()
-  @IsNotEmpty()
-  LIB_USER_EMAIL_VERIFICATION_CIPHER_IV: string;
-
-  // Api Key
-  @IsBoolean()
-  @IsOptional()
-  @Transform(({ value }) => value === 'true')
-  LIB_USER_API_KEY_VERIFICATION_ENABLED: boolean = false;
-
-  @IsString()
-  @IsNotEmpty()
-  LIB_USER_API_KEY_CIPHER_KEY: string;
-
-  @IsString()
-  @IsNotEmpty()
-  LIB_USER_API_KEY_CIPHER_IV: string;
 
   // ------------- Journal
   @IsBoolean()
