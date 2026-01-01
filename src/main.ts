@@ -45,12 +45,12 @@ async function bootstrap() {
   const baseUrl = config.get('API_APP_BASE_URL', { infer: true });
 
   const swaggerConfig = new DocumentBuilder()
-    .setTitle('Backend DEYDEY')
-    .setDescription('API documentation for deydey academic ')
+    .setTitle('Backend evivi')
+    .setDescription('API documentation for evivi academic ')
     .setVersion('1.0.0')
     .addServer(`${baseUrl}/${globalPrefix}`)
     .addBearerAuth()
-    .addTag('Deydey API')
+    .addTag('evivi API')
     .build();
 
   const documentFactory = () =>
