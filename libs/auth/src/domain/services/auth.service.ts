@@ -293,7 +293,7 @@ export class AuthService {
     await this.notifyService.notifyByEmail(
       'password-reset',
       {
-        firstname: user.firstname,
+        fullName: user.fullName,
         resetToken,
         resetLink: `${this.config.get('API_APP_BASE_URL')}/auth/reset-password?token=${resetToken}`,
       },
@@ -357,7 +357,7 @@ export class AuthService {
     await this.notifyService.notifyByEmail(
       'password-changed',
       {
-        firstname: user.firstname,
+        fullName: user.fullName,
       },
       user.email,
       user._id.toString(),
@@ -419,7 +419,7 @@ export class AuthService {
     await this.notifyService.notifyByEmail(
       'password-changed',
       {
-        firstname: user.firstname,
+        fullName: user.fullName,
       },
       user.email,
       user._id.toString(),

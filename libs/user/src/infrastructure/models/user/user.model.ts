@@ -18,13 +18,9 @@ export enum OTP_METHOD {
   timestamps: true,
 })
 export class User extends BaseModel {
-  @ApiProperty({ type: String, example: 'John' })
+  @ApiProperty({ type: String, example: 'John Doe' })
   @Prop({ type: String, required: true })
-  firstname: string;
-
-  @ApiProperty({ type: String, example: 'Doe' })
-  @Prop({ type: String, required: true })
-  lastname: string;
+  fullName: string;
 
   @ApiProperty({ type: String, example: 'F' })
   @Prop({ type: String, required: true })

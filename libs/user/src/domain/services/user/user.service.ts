@@ -90,8 +90,7 @@ export class UserService {
     const { salt, hashedPassword } = await this.hashPassword(password);
 
     const user = await this.userRepository.create({
-      firstname: input.firstname!,
-      lastname: input.lastname!,
+      fullName: input.fullName!,
       gender: input.gender!,
       email: input.email!,
       phone: input.phone!,

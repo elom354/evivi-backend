@@ -17,11 +17,8 @@ export class UserDto {
   @ApiProperty({ type: String, example: '507f1f77bcf86cd799439011' })
   _id: string;
 
-  @ApiProperty({ type: String, example: 'John' })
-  firstname: string;
-
   @ApiProperty({ type: String, example: 'Doe' })
-  lastname: string;
+  fullName: string;
 
   @ApiProperty({ type: String, example: 'M' })
   gender: string;
@@ -64,8 +61,7 @@ export class UserDto {
 
   constructor(user: LeanedDocument<User>) {
     this._id = user._id.toString();
-    this.firstname = user.firstname;
-    this.lastname = user.lastname;
+    this.fullName = user.fullName;
     this.gender = user.gender;
     this.email = user.email;
     this.phone = user.phone;

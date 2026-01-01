@@ -14,14 +14,6 @@ import { OTP_METHOD } from '@app/user/infrastructure/models';
  * DTO pour l'inscription d'un nouvel utilisateur
  */
 export class RegisterDto {
-  @ApiProperty({
-    type: String,
-    description: "Le prénom de l'utilisateur",
-    example: 'John',
-  })
-  @IsString({ message: 'Le prénom doit être une chaîne de caractères' })
-  @IsNotEmpty({ message: 'Le prénom est obligatoire' })
-  firstname: string;
 
   @ApiProperty({
     type: String,
@@ -30,17 +22,8 @@ export class RegisterDto {
   })
   @IsString({ message: 'Le nom doit être une chaîne de caractères' })
   @IsNotEmpty({ message: 'Le nom est obligatoire' })
-  lastname: string;
+  fullName: string;
 
-  @ApiProperty({
-    type: String,
-    description: "Le sexe de l'utilisateur",
-    enum: ['M', 'F'],
-    example: 'M',
-  })
-  @IsEnum(['M', 'F'], { message: "Le sexe doit être 'M' ou 'F'" })
-  @IsNotEmpty({ message: 'Le sexe est obligatoire' })
-  gender: string;
 
   @ApiProperty({
     type: String,
