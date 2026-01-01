@@ -23,11 +23,11 @@ export class User extends BaseModel {
   fullName: string;
 
   @ApiProperty({ type: String, example: 'F' })
-  @Prop({ type: String, required: true })
+  @Prop({ type: String, required: false })
   gender: string;
 
   @ApiProperty({ type: String, example: 'johndoe@mail.com' })
-  @Prop({ type: String, required: true, index: true })
+  @Prop({ type: String, required: false, index: true })
   email: string;
 
   @ApiProperty({ type: String, example: '+22890112233' })

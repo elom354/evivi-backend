@@ -4,7 +4,6 @@ import { User, OTP_METHOD } from '@app/user/infrastructure/models';
 // Types pour les inputs
 export interface RegisterInput {
   fullName: string;
-  email: string;
   phone: string;
   phoneCountryCode?: string;
   password: string;

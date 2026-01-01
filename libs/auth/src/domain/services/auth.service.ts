@@ -65,7 +65,6 @@ export class AuthService {
    * Inscription d'un nouvel utilisateur
    */
   async register(input: RegisterInput): Promise<RegisterResponse> {
-    this.logger.log(`Registering new user: ${input.email}`);
 
     // Créer l'utilisateur via UserService (qui gère l'envoi d'OTP)
     const user = await this.userService.create(input, {

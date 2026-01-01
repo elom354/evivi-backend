@@ -64,17 +64,6 @@ export class UserService {
       }
     }
 
-    const existingEmail = await this.userRepository.getActiveByEmail(
-      input.email!,
-    );
-    if (existingEmail) {
-      throw new ErrorResult({
-        code: 409_010,
-        clean_message: "L'adresse e-mail est déjà utilisée",
-        message: `L'adresse e-mail [${input.email}] est déjà utilisée`,
-      });
-    }
-
     const existingPhone = await this.userRepository.getActiveByPhone(
       input.phone!,
     );
@@ -107,6 +96,11 @@ export class UserService {
       user._id.toString(),
       otpMethod,
     );
+    const isDevMode = this.config.get<boolean>('LIB_USER_OTP_DEV_MODE');
+    if (isDevMode && process.env.NODE_ENV === 'development') {
+      console.warn(`[DEV MODE] Code OTP pour ${user.phone || user.email}: ${code}`);
+      return user;
+    }
 
     const recipient = otpMethod === OTP_METHOD.EMAIL ? user.email : user.phone;
     await this.notifyService.sendOtp(

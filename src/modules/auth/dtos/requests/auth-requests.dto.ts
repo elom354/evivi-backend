@@ -14,7 +14,6 @@ import { OTP_METHOD } from '@app/user/infrastructure/models';
  * DTO pour l'inscription d'un nouvel utilisateur
  */
 export class RegisterDto {
-
   @ApiProperty({
     type: String,
     description: "Le nom de famille de l'utilisateur",
@@ -23,17 +22,6 @@ export class RegisterDto {
   @IsString({ message: 'Le nom doit être une chaîne de caractères' })
   @IsNotEmpty({ message: 'Le nom est obligatoire' })
   fullName: string;
-
-
-  @ApiProperty({
-    type: String,
-    format: 'email',
-    description: "L'adresse e-mail de l'utilisateur",
-    example: 'john.doe@example.com',
-  })
-  @IsEmail({}, { message: "L'adresse e-mail n'est pas valide" })
-  @IsNotEmpty({ message: "L'adresse e-mail est obligatoire" })
-  email: string;
 
   @ApiProperty({
     type: String,

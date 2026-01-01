@@ -99,6 +99,15 @@ export class NotifyService {
     otpCode: string,
     userId?: string,
   ): Promise<void> {
+    const isDevMode = this.config.get<boolean>('LIB_USER_OTP_DEV_MODE');
+
+    if (isDevMode && process.env.NODE_ENV === 'development') {
+      this.logger.warn(
+        `[DEV MODE] OTP non envoyé - Code: ${otpCode} pour ${recipient}`
+      );
+      return;
+    }
+
     if (method === OTP_METHOD.EMAIL) {
       await this.notifyByEmail(
         'otp-verification',
@@ -116,6 +125,7 @@ export class NotifyService {
       });
     }
   }
+
 
   private log(level: LogLevel, message?: string, data?: Record<string, any>) {
     this.journalService.save(

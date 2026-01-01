@@ -212,6 +212,11 @@ export class AppConfig {
   @IsString()
   @IsNotEmpty()
   LIB_NOTIFICATION_SMS_AFRIKSMS_SENDER_NAME: string;
+
+  @IsBoolean()
+  @IsOptional()
+  @Transform(({ value }) => value === 'true')
+  LIB_USER_OTP_DEV_MODE: boolean = false;
 }
 
 export function validateConfig(payload: Record<string, any>) {
