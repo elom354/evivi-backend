@@ -8,6 +8,8 @@ import { OTP_METHOD, User, USER_STATUS } from '@app/user/infrastructure/models';
 import { UserRepository } from '@app/user/infrastructure/repositories';
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
+import mongoose, { Types } from 'mongoose';
+import { GalleryService } from '../gallery/gallery.service';
 
 type CreateUserOptions = Record<string, any> & {
   isAdmin?: boolean;
@@ -29,6 +31,7 @@ export class UserService {
     private readonly notifyService: NotifyService,
     private readonly otpService: OtpService,
     private readonly userRepository: UserRepository,
+    private readonly galleryService: GalleryService,
   ) {
     this.canValidatePassword = this.config.get(
       'LIB_USER_PASSWORD_VALIDATION_ENABLED',
@@ -67,6 +70,7 @@ export class UserService {
     const existingPhone = await this.userRepository.getActiveByPhone(
       input.phone!,
     );
+
     if (existingPhone) {
       throw new ErrorResult({
         code: 409_011,
@@ -75,10 +79,15 @@ export class UserService {
       });
     }
 
+    const userId = new Types.ObjectId();
+
+    const gallery = await this.galleryService.create(userId);
+
     const password = input.password || this.defaultPassword;
     const { salt, hashedPassword } = await this.hashPassword(password);
 
     const user = await this.userRepository.create({
+      _id: userId,
       fullName: input.fullName!,
       gender: input.gender!,
       email: input.email!,
@@ -86,19 +95,23 @@ export class UserService {
       phoneCountryCode: input.phoneCountryCode,
       password: hashedPassword,
       passwordSalt: salt,
-      isAdmin: isAdmin ?? false,
+      galleryId: gallery._id,
+      isAdmin,
       status: USER_STATUS.INACTIVE,
       emailVerified: false,
       phoneVerified: false,
-    });
+    } as any);
 
     const { code } = await this.otpService.createOtp(
       user._id.toString(),
       otpMethod,
     );
+
     const isDevMode = this.config.get<boolean>('LIB_USER_OTP_DEV_MODE');
     if (isDevMode && process.env.NODE_ENV === 'development') {
-      console.warn(`[DEV MODE] Code OTP pour ${user.phone || user.email}: ${code}`);
+      console.warn(
+        `[DEV MODE] Code OTP pour ${user.phone || user.email}: ${code}`,
+      );
       return user;
     }
 

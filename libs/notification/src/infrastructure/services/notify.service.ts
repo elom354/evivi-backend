@@ -103,7 +103,7 @@ export class NotifyService {
 
     if (isDevMode && process.env.NODE_ENV === 'development') {
       this.logger.warn(
-        `[DEV MODE] OTP non envoyé - Code: ${otpCode} pour ${recipient}`
+        `[DEV MODE] OTP non envoyé - Code: ${otpCode} pour ${recipient}`,
       );
       return;
     }
@@ -125,7 +125,6 @@ export class NotifyService {
       });
     }
   }
-
 
   private log(level: LogLevel, message?: string, data?: Record<string, any>) {
     this.journalService.save(

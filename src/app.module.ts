@@ -8,6 +8,7 @@ import { JwtAuthGuard } from '@app/auth/domain/guards/jwt-auth.guard';
 import { ApiJournalModule } from './modules/journal/journal.module';
 import { ApiAuthModule } from './modules/auth/auth.module';
 import { ApiNotificationModule } from './modules/notification/notification.module';
+import { ApiGalleryModule } from './modules/gallery/gallery.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { ApiNotificationModule } from './modules/notification/notification.modul
     ApiJournalModule,
     ApiNotificationModule,
     ApiAuthModule,
+    ApiGalleryModule,
   ],
   providers: [
     {

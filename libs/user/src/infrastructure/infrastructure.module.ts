@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { UserRepository } from './repositories';
+import { UserRepository, GalleryRepository } from './repositories';
 import { LibCoreModule } from '@app/core';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ModelsMainProviders } from '@app/notification/infrastructure/models';
@@ -13,7 +13,7 @@ import { MAIN_DATABASE_CONNECTION_NAME } from '@app/common/constants';
       MAIN_DATABASE_CONNECTION_NAME,
     ),
   ],
-  providers: [UserRepository],
-  exports: [UserRepository],
+  providers: [UserRepository, GalleryRepository],
+  exports: [UserRepository, GalleryRepository],
 })
 export class LibUserInfrastructureModule {}
